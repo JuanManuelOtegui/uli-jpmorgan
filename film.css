@@ -936,3 +936,12 @@ body.probe #foot,body.probe #hudProg{display:none}
 .jp-sl-top{display:flex;justify-content:space-between;align-items:baseline;font-size:clamp(13px,2vmin,22px);color:var(--cream2);letter-spacing:.02em}
 .jp-sl-top b{font-size:clamp(20px,3.4vmin,40px);color:var(--gold2);font-weight:800}
 .jp-sl input[type=range]{width:100%;margin-top:1.2vmin;accent-color:#E8B86D;cursor:pointer}
+.card.tap{position:relative;cursor:pointer;pointer-events:auto;padding-right:6vmin}
+.card.tap::after{content:'+';position:absolute;top:1.2vmin;right:1.2vmin;width:3vmin;height:3vmin;min-width:22px;min-height:22px;border-radius:50%;border:1px solid rgba(232,184,109,.6);color:var(--gold2);font-size:clamp(14px,2vmin,24px);font-weight:600;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .25s var(--ease)}
+.card.tap:hover::after{background:var(--gold2);color:#081109}
+.card.tap.open::after{content:'–';background:var(--gold2);color:#081109}
+.card.tap .cd{display:none;margin-top:.6vmin}
+.card.tap.open .cd{display:block}
+.card.tap .cv{white-space:nowrap;font-size:clamp(16px,2.7vmin,34px)}
+.card.tap .cd{position:absolute;left:0;bottom:calc(100% + .8vmin);width:max(100%,30vmin);z-index:30;padding:1.6vmin 2vmin;border-radius:1.2vmin;background:rgba(10,24,16,.96);border:1px solid rgba(232,184,109,.45);font-size:clamp(12px,1.8vmin,22px);box-shadow:0 1.5vmin 4vmin rgba(0,0,0,.5)}
+.card.tap:last-child .cd{left:auto;right:0}

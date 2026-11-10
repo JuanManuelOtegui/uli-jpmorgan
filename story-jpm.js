@@ -51,6 +51,7 @@ const LPCHART = ()=>{
     <circle class="pt" cx="${x(2025)}" cy="${y(4178)}" r="7"/><text class="pt-t g" x="${x(2025)-12}" y="${y(4178)-16}" text-anchor="end">US$4,178 · 2025</text>
   </svg></div>`; };
 
+const CF={x:500,y:600,km:600,ax:.8,ay:.5};
 const C={far:{x:500,y:545,km:700},country:{x:500,y:545,km:560,ax:.74,ay:.5},countryC:{x:500,y:545,km:600,ax:.5,ay:.5},countryL:{x:500,y:545,km:560,ax:.7,ay:.5}};
 const FOREST_HA={'rivera':141739,'tacuarembo':139828,'rio-negro':134878,'paysandu':128700,'durazno':99414,'lavalleja':96657,'cerro-largo':93638,'florida':56587,'rocha':53296,'treinta-y-tres':50874,'soriano':47084,'maldonado':34618,'canelones':26684,'flores':24610,'colonia':12649,'san-jose':8037,'salto':5758,'artigas':5585,'montevideo':1217};
 const FOREST_H=Object.fromEntries(Object.entries(FOREST_HA).map(([k,v])=>[k,+(v/141739).toFixed(3)]));
@@ -64,97 +65,68 @@ F.chapter({title:'Arrival',beats:[
  {label:'Cover',hud:false,cam:C.country,map:{glow:true,sweep:true},veil:null,layout:'center',
   html:`<div class="col"><img class="logo-hero rev" src="./logo.png" alt="Uruguay Land Invest">
       ${kin('h-xl shadow','Own the land that<br><em>feeds, builds and grows.</em>',300)}
-      ${rev('<div class="lede">Uruguay: forestry land, with a livestock layer on the rest</div>',1300)}
-      ${rev('<div class="src" style="margin-top:1.6vmin">Prepared for J.P. Morgan Natural Capital · November 2026</div>',1600)}</div>`}
+      ${rev('<div class="lede">Presentation for <b>J.P. Morgan Natural Capital</b></div>',1300)}
+      ${rev('<div class="src" style="margin-top:1.6vmin">Montevideo · November 2026</div>',1600)}</div>`}
+]});
+
+/* ---------- Agenda ---------- */
+F.chapter({title:'Agenda',beats:[
+ {label:'Agenda',hud:false,cam:C.far,photo:null,map:{glow:true},veil:'deep',layout:'center',
+  html:F=>{const DESC={'Uruguay':'Stability, land value','Forestry':'Where it grows, what it yields','Livestock':'The largest land use','Uruguay Land Invest':'Who we are and what we do'};
+   return `<div class="col wide">${kick('Today')}${kin('h-l','From the country, <em>to the land.</em>',200)}
+   <div class="agenda" style="grid-template-columns:repeat(4,1fr)">${F.chapters.filter(c=>c.roman&&c.roman!=='A').map((c,i)=>rev(`<div data-jump="${c.start}"><b>${c.roman}</b><span>${c.title}</span><i>${DESC[c.title]||''}</i></div>`,500+i*90)).join('')}</div></div>`}}
 ]});
 
 /* ---------- I Uruguay ---------- */
 F.chapter({roman:'I',title:'Uruguay',beats:[
- {label:'Stability',cam:C.countryL,map:{glow:true,hi:'all',sweep:true,depts:true},veil:'left',layout:'left',
+ {label:'Facts',cam:C.countryL,map:{glow:true,hi:'all',sweep:true,depts:true},veil:'left',layout:'left',
   html:`<div class="col">${kick('Why Uruguay · safety first')}
    ${kin('h-l','Stable enough to hold land <em>for decades.</em>')}
    <div class="cards" style="grid-template-columns:1fr">
-    ${rev(card('Sovereign rating','Investment grade','Fitch BBB, stable outlook (September 2026). S&amp;P BBB+, Moody\'s Baa1.'),600)}
+    ${rev(card('Farmland','<span data-count="16">0</span> M ha','in agricultural use, 2011 Agricultural Census.'),600)}
     ${rev(card('Rule of law','No. 1','in Latin America. WJP Index 2025, 23rd of 143.','','rol'),800)}
     ${rev(card('Foreign ownership','Open','Individuals buy full title on equal terms. Companies need registered shares.','','foreign'),1000)}
-   </div>${src('Fitch, S&amp;P, Moody\'s; WJP 2025; Law 18,092. Legal summary as of September 2026, not legal advice. A bill to restrict foreign purchases is under debate in the Senate.',1400)}</div>`},
+   </div>${src('Law 18,092. Legal summary as of September 2026, not legal advice. A bill to restrict foreign purchases is under debate in the Senate.',1400)}</div>`},
  {label:'Macro',cam:C.country,map:{glow:true,hi:'all',op:.3},veil:'full',layout:'center',
   html:`<div class="col wide">${kick('Why Uruguay · the macro picture')}
    ${kin('h-l','A small economy, <em>built for stability.</em>')}
    <div class="cards c3">
     ${rev(card('GDP','US$85.6 B','US$24,549 per capita, high income (World Bank), 2025.'),600)}
-    ${rev(card('Inflation','4.87%','October 2026, year on year, inside the 3–6% central bank target (2025: 3.65%).','accent'),800)}
-    ${rev(card('Growth','1.8% in 2025','2026 is slower: about 1% expected after a drought year hit soybeans.','warn','macro'),1000)}
-   </div>${src('World Bank, IMF 2025 (GDP); INE (inflation); BCU, Fitch (growth). Figures as of November 2026.',1400)}</div>`},
+    ${rev(card('Inflation','3.65%',"2025, the lowest since 2001, inside the central bank's 3–6% target for 31 months in a row.",'accent'),800)}
+    ${rev(card('Growth','1.8%','2025, below the official projection (BCU).','','macro'),1000)}
+   </div>${src('World Bank, IMF 2025 (GDP); INE 2025 (inflation); BCU 2025 (growth).',1400)}</div>`},
  {label:'Land value',cam:C.country,map:{glow:true,op:.25},veil:'full',layout:'center',foot:DISC,
   html:`<div class="col wide" style="max-width:min(86vw,1400px)">${kick('Land value · 25 years')}
    ${kin('h-l','From US$448 to <em>US$4,178 per hectare.</em>')}
    ${LPCHART()}
-   ${rev('<div class="lede" style="margin-top:1.6vmin">About 6.7% a year after US inflation since 2000, a record in 2025 (+5.3%). Not a straight line: flat from 2014 to 2021.</div>',2400)}
-   ${src('MGAP-DIEA, land sales, all transactions of 10 ha and more; real growth deflated by US CPI-U (9.3% a year nominal). Past performance is not a forecast.',2800)}
+   ${rev('<div class="lede" style="margin-top:1.6vmin">About 6.7% a year after US inflation since 2000, a record in 2025 (+5%). Not a straight line: flat from 2014 to 2021.</div>',2400)}
+   ${src('MGAP-DIEA, land sales, all transactions of 10 ha and more; real growth deflated by US CPI-U. Past performance is not a forecast.',2800)}
    ${mlinks([['landprice','The series in detail']],3000)}</div>`,
-  after:root=>{const l=root.querySelector('.lp');requestAnimationFrame(()=>requestAnimationFrame(()=>l&&l.classList.add('in')))}},
- {label:'Climate',cam:C.country,photo:null,map:{glow:true,hi:'all'},veil:'full',layout:'center',
-  html:`<div class="col wide">${kick('Climate')}
-   ${kin('h-l','Temperate and humid, <em>with a lesson from 2023.</em>')}
-   <div class="cards c3">
-    ${rev(card('Rainfall','1,100–1,400 mm','a year, spread across all seasons.'),600)}
-    ${rev(card('Temperature','18.4 °C','on average. No dry season, no frost belt.'),800)}
-    ${rev(card('2022–23','Drought','The worst in over 70 years. We learned from it.','warn'),1000)}
-   </div>${rev('<div class="lede">That is why we select by the water on the property, not by region.</div>',1400)}
-   ${src('INUMET climate normals; IPCC AR6 for southeastern South America.',1700)}</div>`,
-  after:(root,F)=>{const m=document.getElementById('map');F.later(()=>m.classList.add('drought'),1000);F.later(()=>m.classList.remove('drought'),4600)}}
+  after:root=>{const l=root.querySelector('.lp');requestAnimationFrame(()=>requestAnimationFrame(()=>l&&l.classList.add('in')))}}
 ]});
 
 /* ---------- II Forestry ---------- */
 F.chapter({roman:'II',title:'Forestry',beats:[
- {label:'Forestry · the sector',photo:PH('forest-aerial.jpg'),cam:C.countryL,map:{glow:true,depts:FOREST_L,heat:FOREST_H},veil:'left',layout:'left',foot:DISC,
+ {label:'Forestry · the sector',photo:PH('forest-aerial.jpg'),cam:CF,map:{glow:true,depts:FOREST_L,heat:FOREST_H,places:['Fray Bentos','Paso de los Toros','Conchillas']},veil:'left',layout:'left',foot:DISC,
   html:`<div class="col" style="max-width:min(47vw,860px)">${kick('Forestry · the north and the Río Negro basin')}
    ${kin('h-l','Long cycles. <em>Industrial demand.</em>')}
    ${rev('<div class="lede">Eucalyptus for pulp, with industrial demand from UPM and Montes del Plata.</div>'+nl([
-    ['Planted area','1.2 million ha, 6.85% of the territory, 81% eucalyptus.'],
-    ['Priority forestry soils','The best soils for trees. Tax benefits for 12 years.'],
+    ['Growth','MAI of 27 to 33 m³ per hectare per year.'],
     ['Cycle','About 11 years.'],
-    ['Growth','MAI of 27 to 33 m³ per hectare per year.']]),600)}
-   <div class="cards c3" style="max-width:none">
-    ${rev(card('Forestry exports','US$2.75 B','20.4% of goods exports, 2025.','numsm','forest'),1100)}
-    ${rev(card('Wood extraction','23.5 M m³','+3.3% in 2025.','numsm'),1250)}
-    ${rev(card('Forestry land','US$3,000–3,800','per ha in forestry zones.','numsm'),1400)}
-   </div>
-   ${src('MGAP-DGF, Superficie Plantada Informe 2026; Uruguay XXI. Land range: ULI estimate from MGAP-DIEA.',1800)}</div>`},
- {label:'Forestry · own production',photo:PH('forest-aerial.jpg'),cam:C.countryL,map:{glow:true,depts:FOREST_L,heat:FOREST_H},veil:'left',layout:'left',foot:DISC,
-  html:`<div class="col" style="max-width:min(47vw,860px)">${kick('Forestry · plant and wait')}
-   ${kin('h-l','Own the trees, <em>not just the land.</em>')}
-   ${rev('<div class="lede">Plant, manage for 11 years and harvest. The return comes from the wood, with the land held at constant value.</div>',600)}
+    ['Contracts','24 to 35 years with pulp companies.']]),600)}
    <div class="cards c2" style="max-width:none">
-    ${rev(tcard('Own production · annual result',yv('US$340–566 per ha/year','6.3–12.9% gross yield, median 9.2%'),'Revenue less forestry costs (US$1,400–1,600 per ha), spread over 11 years. MAI 27–33 m³/ha/year, wood at US$18–21/m³.','numsm accent'),1000)}
-    ${rev(tcard('For reference · leasing',yv('US$169 per ha/year','4.4–5.6% gross yield'),'Market rent from pulp companies on 24–35 year contracts. A market reference, not our proposal here.','numsm'),1200)}
+    ${rev(card('Wood extracted','23.5 M m³','in 2025, +3.3%.','numsm'),1100)}
    </div>
-   ${src('ULI model, simple average, not an IRR: yield = (revenue less forestry costs) ÷ 11 years ÷ (land + forestry costs), land at constant value. Excludes tending, insurance, administration, freight, harvest and taxes; very sensitive to MAI and wood price. Rents: MGAP-DIEA 2025. Illustrative, not a projection.',1700)}</div>`},
- {label:'Forestry · the rest of the land',cam:C.country,map:{glow:true,op:.3},veil:'full',layout:'center',foot:DISC,
-  html:`<div class="col wide" style="max-width:min(88vw,1300px)">${kick('Forestry · using the whole property')}
-   ${kin('h-l','The land you cannot plant <em>still earns every year.</em>')}
-   ${rev('<div class="lede">Part of every forestry property cannot be planted: slopes, wetlands, rocky ground. Leased for cattle, it pays a market rent while the trees grow.</div>',600)}
-   <div class="jp-sl rev" style="--d:900ms">
-     <div class="jp-sl-top"><span>Plantable share of the property</span><b id="jpP">60%</b></div>
-     <input id="jpR" type="range" min="40" max="90" step="5" value="60" aria-label="Plantable share of the property">
+   ${src('MGAP-DGF, Superficie Plantada Informe 2026; MGAP-DIEA 2025.',1500)}</div>`},
+ {label:'Forestry · land, production, rent',photo:PH('forest-aerial.jpg'),cam:CF,map:{glow:true,depts:FOREST_L,heat:FOREST_H,places:['Fray Bentos','Paso de los Toros','Conchillas']},veil:'left',layout:'left',foot:DISC,
+  html:`<div class="col" style="max-width:min(47vw,860px)">${kick('Forestry · the numbers')}
+   ${kin('h-l','Land, own production, <em>and rent.</em>')}
+   <div class="cards c3" style="max-width:none;margin-top:4vmin">
+    ${rev(tcard('Forestry land','US$3,000–3,800','per ha in forestry zones. ULI estimate from MGAP-DIEA.','numsm'),700)}
+    ${rev(tcard('Own production','US$340–566 per ha/year','6.3–12.9% gross yield, median case 9.2%. Revenue less forestry costs (US$1,400–1,600 per ha) over 11 years, land at constant value. MAI 27–33 m³/ha/year, wood at US$18–21/m³.','numsm accent'),850)}
+    ${rev(tcard('Rent','US$169 per ha/year','4.4–5.6% gross yield. Pulp companies, 24–35 year contracts: fixed income, no extra capital.','numsm'),1000)}
    </div>
-   <div class="cards c3" style="max-width:none">
-    ${rev(card('Whole property, average','<span id="jpTot">US$238–374</span>','per ha/year across the property, forestry plus livestock rent.','accent'),1100)}
-    ${rev(card('Forestry layer','<span id="jpFor">US$204–340</span>','per ha/year, on the plantable share (US$340–566 on planted land).'),1250)}
-    ${rev(card('Livestock layer','<span id="jpLiv">US$34</span>','per ha/year, from leasing the non-plantable share at US$85. It arrives every year while the forest grows.'),1400)}
-   </div>
-   ${src('Livestock rent: MGAP-DIEA 2025, US$85 per ha/year, 1,261 contracts. Plantable share is a user-set illustration, not a property survey. Forestry pays at thinning and harvest, so the annual figure is an average. Excludes land appreciation. Not a projection.',1800)}</div>`,
-  after:root=>{
-    const r=root.querySelector('#jpR'); if(!r) return;
-    ['keydown','keyup','pointerdown','click'].forEach(ev=>r.addEventListener(ev,e=>{ if(ev!=='keydown'||/Arrow|Home|End/.test(e.key)) e.stopPropagation(); }));
-    const LO=340,HI=566,L=85,$=s=>root.querySelector(s);
-    const calc=()=>{ const p=r.value/100, add=L*(1-p);
-      $('#jpP').textContent=r.value+'%';
-      $('#jpTot').textContent='US$'+fmt(LO*p+add)+'–'+fmt(HI*p+add);
-      $('#jpFor').textContent='US$'+fmt(LO*p)+'–'+fmt(HI*p);
-      $('#jpLiv').textContent='US$'+fmt(add); };
-    r.addEventListener('input',calc); calc(); }},
+   ${src('ULI model, simple average, not an IRR; excludes tending, insurance, administration, freight, harvest and taxes; very sensitive to MAI and wood price. Rent: MGAP-DIEA 2025. Illustrative, not a projection. Tap + for details.',1500)}</div>`}
 ]});
 
 /* ---------- III Livestock ---------- */
@@ -166,8 +138,8 @@ F.chapter({roman:'III',title:'Livestock',beats:[
     ['Traceability','11.7 million cattle with individual traceability by law (Law 17,997, SNIG).'],
     ['Exports','Beef is the No. 1 export: US$2.68 B in 2025, 20% of the total.']]),700)}
    <div class="cards c2">
-    ${rev(card('Livestock land','US$2,800–3,800','per ha in livestock zones','numsm'),950)}
-    ${rev(card('Lease rent',yv('US$85 per ha/year','2.2–3.0% gross yield'),'MGAP-DIEA 2025','accent numsm'),1150)}
+    ${rev(tcard('Livestock land','US$2,800–3,800','per ha in livestock zones','numsm'),950)}
+    ${rev(tcard('Lease rent','US$85 per ha/year','2.2–3.0% gross yield. MGAP-DIEA 2025.','accent numsm'),1150)}
    </div>
    ${src('Uruguay XXI 2025; SNIG; USDA-FAS 2026; MGAP-DIEA leases 2025. Land range: ULI estimate. Indicative zones.',1600)}</div>`}
 ]});

@@ -130,7 +130,7 @@ function build(){
 
   /* Pins: HTML über der Karte, immer scharf, konstante Größe */
   Object.entries(D.places).forEach(([n,p])=>addPin('place',n,p.x,p.y,
-    `<div class="pn ${p.type}"><i></i><span>${n}</span></div>`));
+    `<div class="pn ${p.type}"><i></i><span>${({'Paso de los Toros':'UPM · Paso de los Toros','Fray Bentos':'UPM · Fray Bentos','Conchillas':'Montes del Plata · Conchillas'})[n]||n}</span></div>`));
   Object.keys(D.markers).forEach(k=>{
     const pr=D.props[k]; const [x,y]=D.markers[k];
     addPin('prop',k,x,y,`<div class="pp${pr.lside?' lft':''}"><i></i><div class="pl"><b>${pr.name}</b><span>${pr.area} · ${(pr.region||'').split('·')[0].trim()}</span><b class="haLbl">${pr.area}</b><span class="haLbl">Campo</span></div></div>`);
